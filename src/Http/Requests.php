@@ -22,7 +22,7 @@ class Requests {
 		$options = [
 			'url' => $url,
 			"post_data" => $data,
-			"callback" => function($result) use (&$response) {
+			"callback" => function(Response $result) use (&$response) {
 				$response = $result;
 			},
 		];
