@@ -1,8 +1,8 @@
 <?
 
-namespace Cohort;
+namespace Cohort\Http;
 
-class HttpResponse {
+class Response {
 	private $url;
 	private $response;
 	private $requestInfo;

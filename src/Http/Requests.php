@@ -1,8 +1,8 @@
 <?
 
-namespace Cohort;
+namespace Cohort\Http;
 
-class HttpRequests {
+class Requests {
 	private $requests = [];
 	
 	public function __construct() {}
@@ -32,7 +32,7 @@ class HttpRequests {
 			}
 		}
 		
-		$http = new HttpRequests();
+		$http = new Requests();
 		$http->addRequest($options);
 		$http->execute();
 		
@@ -170,7 +170,7 @@ class HttpRequests {
 		foreach($this->requests as $num => $req) {
 			$callback = $req['callback'];
 			if ($callback) {
-				$resp = new HttpResponse($req['url'], $req['result'], $req['callback_info'], $req['info']);
+				$resp = new Response($req['url'], $req['result'], $req['callback_info'], $req['info']);
 				$callback($resp);
 			}
 		}
