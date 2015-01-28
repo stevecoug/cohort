@@ -57,7 +57,7 @@ class Requests {
 			"errors_ok" => $errors_ok,
 		];
 		
-		foreach ([ "callback", "callback_info", "post_data", "cookies", "user_agent", "headers", "referer" ] as $key) {
+		foreach ([ "callback", "callback_info", "post_data", "cookies", "user_agent", "headers", "referer", "errors_ok" ] as $key) {
 			$req[$key] = (isset($arr[$key]) ? $arr[$key] : false);
 		}
 		
@@ -142,7 +142,7 @@ class Requests {
 		
 		// Check for any errors
 		if ($exec_return_value != CURLM_OK) {
-			trigger_error("Curl multi read error $exec_return_value\n", E_USER_WARNING);
+			throw new \Exception("Curl multi read error $exec_return_value", E_USER_WARNING);
 		}
 
 		// Extract the content

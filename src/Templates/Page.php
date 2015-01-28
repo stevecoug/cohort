@@ -45,7 +45,7 @@ class Page {
 	public function display($template_file, $template_env = []) {
 		$full_path = $this->find_template($template_file);
 		if (!$full_path) {
-			trigger_error("Can't find template $template_file\n");
+			throw new \Exception("Can't find template $template_file");
 		}
 		
 		PageHelperFunction($this->globals, $full_path);
