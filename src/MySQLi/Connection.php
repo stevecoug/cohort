@@ -3,21 +3,15 @@
 namespace Cohort\MySQLi;
 
 class Connection {
-	protected $Host = "localhost";
-	protected $Database = "";
-	protected $Username = "";
-	protected $Password = "";
+	protected $config;
 	
 	protected $link = false;
 	
 	public $Errno	  = 0;
 	public $Error	  = '';
 	
-	public function __construct($host = false, $database = false, $username = false, $password = false) {
-		if ($host) $this->Host = $host;
-		if ($database) $this->Database = $database;
-		if ($username) $this->Username = $username;
-		if ($password) $this->Password = $password;
+	public function __construct(Config $config) {
+		$this->config = $config;
 		
 		$this->connect();
 	}
@@ -30,7 +24,7 @@ class Connection {
 	}
 	
 	private function connect() {
-		$this->link = @mysqli_connect($this->Host, $this->Username, $this->Password, $this->Database);
+		$this->link = @mysqli_connect($this->config->host, $this->config->username, $this->config->password, $this->config->schema);
 		if (!$this->link) $this->halt("Could not connect to database");
 		$this->link->set_charset('utf8mb4');
 	}
@@ -117,8 +111,8 @@ class Connection {
 		
 		if(isset($GLOBALS["PAGE_QUERIES"])) {
 			$GLOBALS["PAGE_QUERIES"][] = array(
-				'host' => $this->Host,
-				'db' => $this->Database,
+				'host' => $this->config->host,
+				'db' => $this->config->schema,
 				'time' => round((microtime(true)-$querystarttime),4) . ' sec. ',
 				'query' => $sql,
 			);
