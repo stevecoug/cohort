@@ -5,7 +5,8 @@ namespace Cohort;
 class Config {
 	protected $properties = [];
 	
-	public function __construct($properties) {
+	public function __construct($properties = false) {
+		if (!is_array($properties)) return;
 		foreach ($properties as $key => $val) {
 			$this->properties[$key] = $val;
 		}
