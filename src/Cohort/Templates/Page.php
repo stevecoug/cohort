@@ -62,7 +62,7 @@ class Page {
 		
 		if (substr($file, 0, 4) !== "http" && substr($file, 0, 1) !== "/") {
 			$real_file = $_SERVER['DOCUMENT_ROOT'] . $this->config->js_path . "/$file.js";
-			$ts = filemtime($real_file);
+			$ts = @filemtime($real_file);
 			$file_path = sprintf($this->config->js_path . "/%s.js?%d", $file, $ts);
 		} else {
 			$file_path = $file;
@@ -76,7 +76,7 @@ class Page {
 		
 		if (substr($file, 0, 4) !== "http" && substr($file, 0, 1) !== "/") {
 			$real_file = $_SERVER['DOCUMENT_ROOT'] . $this->config->css_path . "/$file.css";
-			$ts = filemtime($real_file);
+			$ts = @filemtime($real_file);
 			$file_path = sprintf($this->config->css_path . "/%s.css?%d", $file, $ts);
 		} else {
 			$file_path = $file;
