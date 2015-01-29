@@ -88,8 +88,6 @@ class Page {
 	public function page($title, $align = false) {
 		header("Content-Type: text/html; charset=UTF-8");
 		
-		if ($_GET['bare']) return;
-		
 		$this->env['title'] = $title;
 		if ($this->config->site_name) $title = "$title - " . $this->config->site_name;
 		$this->title = $title;
