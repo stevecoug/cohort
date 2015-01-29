@@ -119,7 +119,11 @@ class Page {
 		}
 		$final_html .= "</head>\n";
 		
-		$final_html .= "<body>\n";
+		if (!empty($this->env['body_class'])) {
+			$final_html .= sprintf("<body class='%s%'>\n", $this->env['body_class']);
+		} else {
+			$final_html .= "<body>\n";
+		}
 		$final_html .= "<div id='page'>\n";
 		$final_html .= $this->header;
 		$final_html .= $html;
