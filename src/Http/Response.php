@@ -26,7 +26,19 @@ class Response {
 	public function getResponseInfo() { return $this->responseInfo; }
 	
 	private function parseResponse() {
-		list($this->responseHeaders, $this->responseData) = explode("\r\n\r\n", $this->response, 2);
+		$response = $this->response;
+		$headers = false;
+		$data = false;
+		while ($headers === false) {
+			list($headers, $data) = explode("\r\n\r\n", $response, 2);
+			$headers = trim($headers);
+			if ($headers === "HTTP/1.1 100 Continue") {
+				$headers = false;
+				$response = $data;
+			}
+		}
+		$this->responseHeaders = $headers;
+		$this->responseData = $data;
 	}
 	
 	public function getResponseHeaders() {
