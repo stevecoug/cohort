@@ -31,7 +31,7 @@ class Connection {
 	
 	public function query($sql) {
 		$args = array_slice(func_get_args(), 1);
-		if (is_array($args[0])) $args = $args[0];
+		if (count($args) > 0 && is_array($args[0])) $args = $args[0];
 		$types = "";
 		$bind_params = array();
 		$blobs = array();
@@ -123,7 +123,7 @@ class Connection {
 	
 	public function squery($sql) {
 		$args = array_slice(func_get_args(), 1);
-		if (is_array($args[0])) $args = $args[0];
+		if (count($args) > 0 && is_array($args[0])) $args = $args[0];
 		return $this->squery_arr($sql, $args);
 	}
 	
@@ -136,7 +136,7 @@ class Connection {
 	
 	public function fquery($sql) {
 		$args = array_slice(func_get_args(), 1);
-		if (is_array($args[0])) $args = $args[0];
+		if (count($args) > 0 && is_array($args[0])) $args = $args[0];
 		$row = $this->squery_arr($sql, $args);
 		if ($row === false) return false;
 		$row = array_values($row);
@@ -145,7 +145,7 @@ class Connection {
 	
 	public function aquery($sql) {
 		$args = array_slice(func_get_args(), 1);
-		if (is_array($args[0])) $args = $args[0];
+		if (count($args) > 0 && is_array($args[0])) $args = $args[0];
 		$result = $this->query($sql, $args);
 		if (!$result) return false;
 		
@@ -156,7 +156,7 @@ class Connection {
 	
 	public function afquery($sql) {
 		$args = array_slice(func_get_args(), 1);
-		if (is_array($args[0])) $args = $args[0];
+		if (count($args) > 0 && is_array($args[0])) $args = $args[0];
 		$result = $this->query($sql, $args);
 		if (!$result) return false;
 		
