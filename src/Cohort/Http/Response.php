@@ -7,23 +7,26 @@ class Response {
 	private $response;
 	private $requestInfo;
 	private $responseInfo;
+	private $error;
 	
 	private $responseHeaders = false;
 	private $responseData = false;
 	private $responseHeaderArray = false;
 	private $responseCookies = false;
 	
-	public function __construct($url, $response, $request_info, $response_info) {
+	public function __construct($url, $response, $request_info, $response_info, $error) {
 		$this->url = $url;
 		$this->response = $response;
 		$this->requestInfo = $request_info;
 		$this->responseInfo = $response_info;
+		$this->error = $error;
 	}
 	
 	public function getUrl() { return $this->url; }
 	public function getResponse() { return $this->response; }
 	public function getRequestInfo() { return $this->requestInfo; }
 	public function getResponseInfo() { return $this->responseInfo; }
+	public function getError() { return $this->error; }
 	
 	private function parseResponse() {
 		$response = $this->response;
