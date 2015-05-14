@@ -8,5 +8,6 @@ class Config extends \Cohort\Config {
 		"schema" => "test",
 		"username" => "test",
 		"password" => "",
+		"charset" => "utf8mb4",
 	];
 }
