@@ -8,7 +8,7 @@ class Config {
 	public function __construct($properties = false) {
 		if (!is_array($properties)) return;
 		foreach ($properties as $key => $val) {
-			$this->properties[$key] = $val;
+			$this->__set($key, $val);
 		}
 	}
 	
@@ -17,6 +17,9 @@ class Config {
 		return $this->properties[$key];
 	}
 	public function __set($key, $val) {
+		if (!isset($this->properties[$key])) {
+			throw new \Exception("Invalid property: $key");
+		}
 		$this->properties[$key] = $val;
 	}
 }
