@@ -33,7 +33,7 @@ class Requests {
 		}
 		
 		$http = new Requests();
-		$http->addRequest($options);
+		$http->addRequest($options, false);
 		$http->execute();
 		
 		return $response;
@@ -49,7 +49,7 @@ class Requests {
 		return count($this->requests);
 	}
 	
-	public function addRequest($arr, $errors_ok = false) {
+	public function addRequest($arr, $errors_ok = true) {
 		$num = $this->numRequests();
 		$req = [
 			"url" => $arr['url'],
@@ -151,12 +151,15 @@ class Requests {
 			$curl_error = curl_error($ch[$num]);
 			if($curl_error == "") {
 				$this->requests[$num]['result'] = curl_multi_getcontent($ch[$num]);
-				$this->requests[$num]['info'] = curl_getinfo($ch[$num]);
+				$this->requests[$num]['error'] = false;
 			} else {
+				$this->requests[$num]['result'] = "";
+				$this->requests[$num]['error'] = $curl_error;
 				if (!$this->requests[$num]['errors_ok']) {
 					throw new \Exception("Curl error on handle $num: $curl_error");
 				}
 			}
+			$this->requests[$num]['info'] = curl_getinfo($ch[$num]);
 			
 			// Remove and close the handle
 			curl_multi_remove_handle($mh, $ch[$num]);
@@ -170,7 +173,7 @@ class Requests {
 		foreach($this->requests as $num => $req) {
 			$callback = $req['callback'];
 			if ($callback) {
-				$resp = new Response($req['url'], $req['result'], $req['callback_info'], $req['info']);
+				$resp = new Response($req['url'], $req['result'], $req['callback_info'], $req['info'], $req['error']);
 				$callback($resp);
 			}
 		}
