@@ -26,7 +26,7 @@ class Connection {
 	private function connect() {
 		$this->link = @mysqli_connect($this->config->host, $this->config->username, $this->config->password, $this->config->schema);
 		if (!$this->link) $this->halt("Could not connect to database");
-		$this->link->set_charset('utf8mb4');
+		$this->link->set_charset($this->config->charset);
 	}
 	
 	public function query($sql) {
