@@ -132,7 +132,7 @@ class Auth {
 		
 		if (isset($_COOKIE['autologin'])) {
 			if ($this->authenticate_cookie($_COOKIE['autologin'])) return true;
-			setcookie("autologin", "", time() - 3600, "/");
+			setcookie("autologin", "", $_SERVER['REQUEST_TIME'] - 3600, "/");
 		}
 		
 		if ($this->is_valid) {
@@ -186,12 +186,12 @@ class Auth {
 	}
 	
 	public function reset_expires() {
-		$this->expires = time() + $config->login_expire;
+		$this->expires = $_SERVER['REQUEST_TIME'] + $this->config->login_expire;
 	}
 	
 	public function expired() {
 		if ($this->expires === 0) return false;
-		return ($this->expires < time());
+		return ($this->expires < $_SERVER['REQUEST_TIME']);
 	}
 	
 	public function message($msg, $type = "warning") {
@@ -269,8 +269,8 @@ class Auth {
 		$good = $this->good = false;
 		
 		list($username, $ts, $cookie_hash) = explode("|", $cookie, 3);
-		if ($ts + $this->config->cookie_expire < time()) return false;
-		if ($ts > time()) return false;
+		if ($ts + $this->config->cookie_expire < $_SERVER['REQUEST_TIME']) return false;
+		if ($ts > $_SERVER['REQUEST_TIME']) return false;
 		
 		$valid_cookie = $this->get_auth_cookie($username, $ts);
 		if ($valid_cookie === false) return false;
@@ -283,7 +283,7 @@ class Auth {
 	public function get_auth_cookie($username = false, $ts = false) {
 		if ($ts === false) {
 			$username = $this->username;
-			$ts = time();
+			$ts = $_SERVER['REQUEST_TIME'];
 		} else {
 			$ts = intval($ts);
 		}
