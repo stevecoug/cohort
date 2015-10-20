@@ -57,7 +57,7 @@ class Requests {
 			"errors_ok" => $errors_ok,
 		];
 		
-		foreach ([ "callback", "callback_info", "post_data", "cookies", "user_agent", "headers", "referer", "errors_ok" ] as $key) {
+		foreach ([ "callback", "callback_info", "post_data", "cookies", "user_agent", "headers", "referer", "errors_ok", "timeout" ] as $key) {
 			$req[$key] = (isset($arr[$key]) ? $arr[$key] : false);
 		}
 		
@@ -102,6 +102,10 @@ class Requests {
 			if (!empty($req['user_agent'])) $curl_opts[CURLOPT_USERAGENT] = $req['user_agent'];
 			if (!empty($req['headers'])) $curl_opts[CURLOPT_HTTPHEADER] = $req['headers'];
 			if (!empty($req['referer'])) $curl_opts[CURLOPT_REFERER] = $req['referer'];
+			if (!empty($req['timeout'])) {
+				$curl_opts[CURLOPT_CONNECTTIMEOUT] = intval($req['timeout']);
+				$curl_opts[CURLOPT_TIMEOUT] = intval($req['timeout']);
+			}
 			
 			curl_setopt_array($ch[$num], $curl_opts);
 			
