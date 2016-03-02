@@ -140,7 +140,7 @@ class Page {
 // This function needs to be outside of the class in order to protect $this
 function PageHelperFunction($globals, $full_path) {
 	foreach ($globals as $var) {
-		global $$var;
+		global ${$var};
 	}
 	unset($var);
 	
