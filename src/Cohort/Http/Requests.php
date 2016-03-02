@@ -107,6 +107,11 @@ class Requests {
 				$curl_opts[CURLOPT_TIMEOUT] = intval($req['timeout']);
 			}
 			
+			if (substr($req['url'], 0, 6) === "https:") {
+				$curl_opts[CURLOPT_SSLVERSION] = 6; //CURL_SSLVERSION_TLSv1_2
+				//$curl_opts[CURLOPT_SSL_CIPHER_LIST] = "TLSv1";
+			}
+			
 			curl_setopt_array($ch[$num], $curl_opts);
 			
 			curl_multi_add_handle($mh, $ch[$num]);
