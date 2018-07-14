@@ -1,4 +1,4 @@
-<?
+<?php
 
 namespace Cohort\Http;
 
@@ -73,7 +73,7 @@ class Requests {
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_MAXREDIRS => 2,
 			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_CONNECTTIMEOUT => 3,
+			CURLOPT_CONNECTTIMEOUT => 10,
 			CURLOPT_TIMEOUT => 10,
 			CURLOPT_SSL_VERIFYPEER => false,
 			CURLOPT_SAFE_UPLOAD => true,

@@ -46,6 +46,7 @@ abstract class Parse implements \Iterator {
 					printf("Error %d on line %d, column %d, level %d\n  %s", $error->code, $error->line, $error->column, $error->level, $error->message);
 				}
 			}
+			throw new \Exception("RSS parsing error: XML could not be loaded");
 			return false;
 		}
 		
@@ -62,7 +63,7 @@ abstract class Parse implements \Iterator {
 			}
 		}
 		if ($debug) printf("******** RSS PARSING ERROR: %s/%s ********\n", $xml->getName(), $xml['version']);
-		return false;
+		throw new \Exception("RSS parsing error: ".$xml->getName()."/".$xml['version']);
 	}
 	
 	protected function normalize_link($link) {
