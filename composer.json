@@ -4,7 +4,7 @@
 	"description": "A library of simple functions and classes for PHP 5.4+",
 	"keywords": [ "http" ],
 	"homepage": "https://github.com/stevecoug/cohort",
-	"license": "BSD",
+	"license": "BSD-2-Clause",
 	"authors": [
 		{
 			"name": "Steve Meyers",
